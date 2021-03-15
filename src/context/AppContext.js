@@ -63,6 +63,8 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  ///////////// delete ///////////
+
   //////////
   return (
     <AppContext.Provider
@@ -73,6 +75,7 @@ export const AppProvider = ({ children }) => {
         setEventData,
         eventChange,
         submitEvent,
+        setReminders,
       }}
     >
       {children}

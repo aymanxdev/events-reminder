@@ -2,6 +2,10 @@ import React from "react";
 import "../assets/styles/eventBox.scss";
 
 const EventBox = (props) => {
+  const handleDelete = () => {
+    props.onDelete(props.id);
+  };
+
   return (
     <div className="container">
       <div className="card">
@@ -14,6 +18,7 @@ const EventBox = (props) => {
           <h6>Events reminder</h6>
           <h2>{props.name}</h2>
         </div>
+        <button onClick={handleDelete}>DELETE</button>
       </div>
     </div>
   );
