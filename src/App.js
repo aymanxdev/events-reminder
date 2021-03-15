@@ -1,17 +1,17 @@
 import React from "react";
-import "./App.css";
-import Add from "./components/Add";
-import EventBox from "./components/EventBox";
 import Header from "./components/Header";
+import Home from "./pages/Home";
+
 import { AppProvider } from "./context/AppContext";
+
+import "./App.css";
 
 function App() {
   return (
     <AppProvider>
       <div>
         <Header />
-        <Add />
-        <EventBox />
+        <Home />
       </div>
     </AppProvider>
   );
