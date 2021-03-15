@@ -6,7 +6,7 @@ const EventBox = (props) => {
     <div className="container">
       <div className="card">
         <div className="card-side">
-          <h2>{props.date} </h2>
+          <h2>{props.days}</h2>
           <h6>Days</h6>
           {/* // <a>View all chapters </a> */}
         </div>

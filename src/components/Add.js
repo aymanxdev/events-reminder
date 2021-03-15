@@ -3,28 +3,24 @@ import "../assets/styles/add.scss";
 import { AppContext } from "../context/AppContext";
 
 const Add = () => {
-  const {
-    eventChange,
-    minDate,
-    submitEvent,
-    EventData: eventName,
-    eventDate,
-  } = useContext(AppContext);
+  const { eventChange, minDate, submitEvent, eventData } = useContext(
+    AppContext
+  );
 
   return (
     <div className="add-container">
       <form className="add-form">
         <input
-          name="eventName"
+          name="name"
           type="text"
-          value={eventName}
+          value={eventData.name}
           placeholder="Event Name"
           onChange={eventChange}
         />
         <input
           type="date"
-          name="eventDate"
-          value={eventDate}
+          name="date"
+          value={eventData.date}
           onChange={eventChange}
           min={minDate}
         />
