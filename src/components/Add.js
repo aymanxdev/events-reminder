@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "../assets/styles/add.scss";
 import { AppContext } from "../context/AppContext";
+import Alert from "@material-ui/lab/Alert";
 
 const Add = () => {
   const { eventChange, minDate, submitEvent, eventData } = useContext(
@@ -9,6 +10,18 @@ const Add = () => {
 
   return (
     <div className="add-container">
+      <div className="alert">
+        {eventData.dateError && eventData.nameError && (
+          <Alert severity="warning">Event Name and Date cannot be blank</Alert>
+        )}
+        {eventData.nameError && (
+          <Alert severity="warning">{eventData.nameError}</Alert>
+        )}
+        {eventData.dateError && (
+          <Alert severity="warning">{eventData.dateError}</Alert>
+        )}
+      </div>
+
       <form className="add-form">
         <input
           name="name"

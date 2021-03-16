@@ -1,5 +1,6 @@
 import React from "react";
 import "../assets/styles/eventBox.scss";
+import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
 const EventBox = (props) => {
   const handleDelete = () => {
@@ -18,7 +19,11 @@ const EventBox = (props) => {
           <h6>Events reminder</h6>
           <h2>{props.name}</h2>
         </div>
-        <button onClick={handleDelete}>DELETE</button>
+
+        <HighlightOffOutlinedIcon
+          className="delete-btn"
+          onClick={handleDelete}
+        />
       </div>
     </div>
   );

@@ -2,10 +2,18 @@ import React, { createContext, useState } from "react";
 
 export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
+  const initialState = {
+    name: "",
+    date: "",
+    nameError: "",
+    dateError: "",
+  };
   //////////   hooks /////////
   const [eventData, setEventData] = useState({
     name: "",
     date: "",
+    nameError: "",
+    dateError: "",
   });
 
   const [reminders, setReminders] = useState([]);
@@ -37,7 +45,25 @@ export const AppProvider = ({ children }) => {
     // return daysDiff;
   };
 
-  ///// Testing ///
+  ///// validation ///
+
+  const validate = () => {
+    let nameError = "";
+    let dateError = "";
+
+    if (!eventData.name) {
+      nameError = "Name cannot be empty";
+    }
+    if (!eventData.date) {
+      dateError = "Date cannot be blank";
+    }
+    if (nameError || dateError) {
+      setEventData({ nameError, dateError });
+      return false;
+    }
+
+    return true;
+  };
 
   ////////////// handlers ////////////
   const eventChange = (e) => {
@@ -49,18 +75,18 @@ export const AppProvider = ({ children }) => {
 
   ////////handle submit button ////////////
   const submitEvent = (e) => {
-    setReminders((prevValue) => {
-      return [
-        ...prevValue,
-        { name: eventData.name, date: calculate_days(eventData.date) },
-      ];
-    });
-    calculate_days();
     e.preventDefault();
-    setEventData({
-      name: "",
-      date: "",
-    });
+    const is_valid = validate();
+    if (is_valid) {
+      setReminders((prevValue) => {
+        return [
+          ...prevValue,
+          { name: eventData.name, date: calculate_days(eventData.date) },
+        ];
+      });
+      setEventData(initialState);
+    }
+    return false;
   };
 
   ///////////// delete ///////////
