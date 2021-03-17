@@ -13,12 +13,31 @@
   border: 0.5px solid whitesmoke;
   box-shadow: 0 20px 20px rgba(211, 211, 211, 0.1);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   max-width: 100%;
   margin: 20px;
   overflow: hidden;
   width: 800px;
   padding: 3rem;
+}
+
+.form-dark-mode {
+  background-color: #46185f;
+  border: 0.5px solid #a278b5;
+
+  input {
+    background-color: #e1ccec;
+
+    &:not(input[type="date"]):not([type="text"]) {
+      background-color: #cc0e74;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    &:not(input[type="date"]):not([type="text"]):hover {
+      background-color: #e6739f;
+    }
+  }
 }
 
 .alert {
@@ -28,15 +47,16 @@
 input {
   border-radius: 4px;
   padding: 12px 20px;
-  border: 1px solid rgb(97, 4, 97);
+  border: 1.7px solid #6155a6;
   color: purple;
+  font-weight: bold;
 
   &::placeholder {
     color: rgb(97, 4, 97);
   }
   &:focus {
     outline: none !important;
-    border-color: rgb(97, 4, 97);
+    border-color: #ffabe1;
     box-shadow: 0 0 3px rgb(173, 116, 173);
   }
   &::-webkit-calendar-picker-indicator {
@@ -47,16 +67,20 @@ input {
     height: 20px;
     border-width: thin;
   }
+  &:hover {
+    border-color: purple;
+  }
 
   &:not(input[type="date"]):not([type="text"]) {
     border-radius: 4px;
-    padding: 12px 40px;
-    background-color: rgb(97, 4, 97);
+    padding: 12px 50px;
+    font-weight: bold;
+    background-color: #6155a6;
     color: white;
     border: none;
     cursor: pointer;
   }
-  :hover {
-    background-color: rgb(173, 116, 173);
+  &:not(input[type="date"]):not([type="text"]):hover {
+    background-color: #a685e2;
   }
 }

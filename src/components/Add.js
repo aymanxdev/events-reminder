@@ -4,25 +4,25 @@ import { AppContext } from "../context/AppContext";
 import Alert from "@material-ui/lab/Alert";
 
 const Add = () => {
-  const { eventChange, minDate, submitEvent, eventData } = useContext(
+  const { eventChange, minDate, submitEvent, eventData, darkMode } = useContext(
     AppContext
   );
-
+  const errorMsg = () => {
+    if (eventData.dateError && eventData.nameError) {
+      return (
+        <Alert severity="warning">Event Name and Date cannot be blank</Alert>
+      );
+    } else if (eventData.nameError) {
+      return <Alert severity="warning">{eventData.nameError}</Alert>;
+    } else if (eventData.dateError) {
+      return <Alert severity="warning">{eventData.dateError}</Alert>;
+    }
+  };
   return (
     <div className="add-container">
-      <div className="alert">
-        {eventData.dateError && eventData.nameError && (
-          <Alert severity="warning">Event Name and Date cannot be blank</Alert>
-        )}
-        {eventData.nameError && (
-          <Alert severity="warning">{eventData.nameError}</Alert>
-        )}
-        {eventData.dateError && (
-          <Alert severity="warning">{eventData.dateError}</Alert>
-        )}
-      </div>
+      <div className="alert">{errorMsg()}</div>
 
-      <form className="add-form">
+      <form className={`add-form ${darkMode && "form-dark-mode"}`}>
         <input
           name="name"
           type="text"
@@ -36,6 +36,7 @@ const Add = () => {
           value={eventData.date}
           onChange={eventChange}
           min={minDate}
+          placeholder="Pick a date"
         />
         <input
           className="submit-btn"

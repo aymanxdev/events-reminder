@@ -1,7 +1,13 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
+  //////the below function is for the dark mode////
+  const getInitialMode = () => {
+    const savedMode = JSON.parse(localStorage.getItem("dark"));
+    return savedMode || false;
+  };
+
   const initialState = {
     name: "",
     date: "",
@@ -17,6 +23,7 @@ export const AppProvider = ({ children }) => {
   });
 
   const [reminders, setReminders] = useState([]);
+  const [darkMode, setDarkMode] = useState(getInitialMode());
 
   //////////////// format date to add min date to select from ////////////////////
   var todaysDate = new Date(); // Gets today's date
@@ -34,7 +41,7 @@ export const AppProvider = ({ children }) => {
     //calculate days selected by user
     const dateByUser = new Date(date);
     // To Calculate the result in milliseconds and then converting into days
-    const result =
+    var result =
       Math.round(dateByUser.getTime() - present_date.getTime()) / one_day;
     return result.toFixed(0);
 
@@ -89,15 +96,27 @@ export const AppProvider = ({ children }) => {
     return false;
   };
 
-  ///////////// delete ///////////
+  //////////////////////DARK MODE////////////////////////
 
-  //////////
+  const changeMode = () => {
+    setDarkMode((prevMode) => !prevMode);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("dark", JSON.stringify(darkMode));
+  }, [darkMode]);
+
+  //////////////////////DARK MODE////////////////////////
   return (
     <AppContext.Provider
+      className={`${darkMode && "dark-mode"}`}
       value={{
         eventData,
         reminders,
         minDate,
+        darkMode,
+        changeMode,
+        setDarkMode,
         setEventData,
         eventChange,
         submitEvent,
