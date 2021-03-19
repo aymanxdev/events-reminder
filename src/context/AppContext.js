@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { auth } from "../database/firebase";
 
 export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
@@ -96,6 +97,32 @@ export const AppProvider = ({ children }) => {
     return false;
   };
 
+  ////// Authentication ////////
+
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const signup = (email, password) => {
+    return auth.createUserWithEmailAndPassword(email, password);
+  };
+
+  const login = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password);
+  };
+
+  const logout = () => {
+    return auth.signOut();
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
   //////////////////////DARK MODE////////////////////////
 
   const changeMode = () => {
@@ -115,6 +142,10 @@ export const AppProvider = ({ children }) => {
         reminders,
         minDate,
         darkMode,
+        currentUser,
+        logout,
+        login,
+        signup,
         changeMode,
         setDarkMode,
         setEventData,
@@ -123,7 +154,7 @@ export const AppProvider = ({ children }) => {
         setReminders,
       }}
     >
-      {children}
+      {!loading && children}
     </AppContext.Provider>
   );
 };
