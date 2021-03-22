@@ -5,12 +5,15 @@ import { AppContext } from "../context/AppContext";
 import "../assets/styles/home.scss";
 import Header from "../components/Header";
 import { useHistory } from "react-router-dom";
+import useFirestore from "../hooks/useFirestore";
 
 const Home = () => {
   const { reminders, setReminders, currentUser, logout } = useContext(
     AppContext
   );
   const renderedData = [...reminders].reverse();
+  const { docs } = useFirestore("events");
+  console.log(docs);
 
   const [authError, setAuthError] = useState();
   const deleteEvent = (id) => {

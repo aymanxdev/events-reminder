@@ -24,6 +24,7 @@ const Add = () => {
 
       <form className={`add-form ${darkMode && "form-dark-mode"}`}>
         <input
+          className="add-input"
           name="name"
           type="text"
           value={eventData.name}
@@ -31,6 +32,7 @@ const Add = () => {
           onChange={eventChange}
         />
         <input
+          className="add-input"
           type="date"
           name="date"
           value={eventData.date}
@@ -39,7 +41,7 @@ const Add = () => {
           placeholder="Pick a date"
         />
         <input
-          className="submit-btn"
+          className="submit-btn add-input"
           type="submit"
           value="Add"
           onClick={submitEvent}

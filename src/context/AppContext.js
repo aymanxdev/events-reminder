@@ -114,6 +114,9 @@ export const AppProvider = ({ children }) => {
     return auth.signOut();
   };
 
+  const resetPassword = (email) => {
+    return auth.sendPasswordResetEmail(email);
+  };
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -122,6 +125,8 @@ export const AppProvider = ({ children }) => {
 
     return unsubscribe;
   }, []);
+
+  //////////////////////  Database  ////////////////////////
 
   //////////////////////DARK MODE////////////////////////
 
@@ -143,6 +148,7 @@ export const AppProvider = ({ children }) => {
         minDate,
         darkMode,
         currentUser,
+        resetPassword,
         logout,
         login,
         signup,

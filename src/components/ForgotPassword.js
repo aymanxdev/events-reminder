@@ -1,52 +1,52 @@
 import React, { useRef, useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import Alert from "@material-ui/lab/Alert";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Login = () => {
+const ForgotPassword = () => {
   const emailRef = useRef();
-  const passwordRef = useRef();
 
-  const { login } = useContext(AppContext);
+  const { resetPassword } = useContext(AppContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [message, setMessage] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setMessage("");
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push("/");
+      await resetPassword(emailRef.current.value);
+      setMessage("Please check your inbox for further instructions ");
     } catch {
-      setError("Failed to login");
+      setError("Failed to reset password");
     }
     setLoading(false);
   };
 
   return (
     <div>
-      <h2>Log In</h2>
+      <h2>Forgot Password</h2>
       {error && <Alert severity="danger">{error}</Alert>}
+      {message && <Alert severity="success">{message}</Alert>}
       <form onSubmit={handleSubmit}>
         <label>Email</label>
         <input id="email" type="email" ref={emailRef} />
-        <label>password</label>
-        <input id="password" type="password" ref={passwordRef} />
 
         <button disabled={loading} otype="submit">
-          Login
+          Reset Password
         </button>
       </form>
       <h4>
         Need an account? <Link to="/signup">Signup</Link>
       </h4>
       <h4>
-        <Link to="/forgot-password">Forgot Password? </Link>
+        <Link to="/login">Login </Link>
       </h4>
     </div>
   );
 };
 
-export default Login;
+export default ForgotPassword;
