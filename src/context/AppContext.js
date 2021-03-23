@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../database/firebase";
+import { useEvents } from "../hooks/useEvents";
 
 export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
@@ -25,6 +26,8 @@ export const AppProvider = ({ children }) => {
 
   const [reminders, setReminders] = useState([]);
   const [darkMode, setDarkMode] = useState(getInitialMode());
+
+  // const events = useEvents();
 
   //////////////// format date to add min date to select from ////////////////////
   var todaysDate = new Date(); // Gets today's date

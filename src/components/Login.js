@@ -2,8 +2,56 @@ import React, { useRef, useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import Alert from "@material-ui/lab/Alert";
 import { Link, useHistory } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-const Login = () => {
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="aymanx.io">
+        Events Reminder
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  input: {
+    backgroundColor: "white",
+  },
+}));
+
+export default function Signup() {
+  const classes = useStyles();
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -26,27 +74,63 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      {error && <Alert severity="danger">{error}</Alert>}
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input id="email" type="email" ref={emailRef} />
-        <label>password</label>
-        <input id="password" type="password" ref={passwordRef} />
-
-        <button disabled={loading} otype="submit">
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        {error && <Alert severity="error">{error}</Alert>}
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
           Login
-        </button>
-      </form>
-      <h4>
-        Need an account? <Link to="/signup">Signup</Link>
-      </h4>
-      <h4>
-        <Link to="/forgot-password">Forgot Password? </Link>
-      </h4>
-    </div>
-  );
-};
+        </Typography>
 
-export default Login;
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            ref={emailRef}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            ref={passwordRef}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            disabled={loading}
+          >
+            Login
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link to="/signup"> Create an account</Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
+  );
+}
