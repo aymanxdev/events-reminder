@@ -54,7 +54,6 @@ function Header() {
         </label>
         <div className="log-out">
           <ExitToAppIcon className="log-out" onClick={handleLogout}>
-            {" "}
             Logout
           </ExitToAppIcon>
           {authError && <Alert severity="error">{authError}</Alert>}

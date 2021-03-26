@@ -7,8 +7,8 @@ import Header from "../components/Header";
 import useFirestore from "../hooks/useFirestore";
 
 const Home = () => {
-  const { reminders, setReminders, currentUser } = useContext(AppContext);
-  const renderedData = [...reminders].reverse();
+  const { reminders, setReminders } = useContext(AppContext);
+  // const renderedData = [...reminders].reverse();
   const { docs } = useFirestore("events");
   console.log(docs);
 
@@ -23,11 +23,10 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <strong>{currentUser.email}</strong>
 
       <Add />
       <div className="second-container">
-        {renderedData.map((reminder, index) => (
+        {reminders.map((reminder, index) => (
           <EventBox
             name={reminder.name}
             days={reminder.date}
