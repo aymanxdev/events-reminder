@@ -7,7 +7,6 @@ const Signup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const nameRef = useRef();
 
   const { signup } = useContext(AppContext);
   const [error, setError] = useState("");
@@ -35,8 +34,6 @@ const Signup = () => {
       <h2>Sign up</h2>
       {error && <Alert severity="danger">{error}</Alert>}
       <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input id="name" type="text" ref={nameRef} />
         <label>Email</label>
         <input id="email" type="email" ref={emailRef} />
         <label>password</label>

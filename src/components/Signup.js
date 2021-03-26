@@ -51,9 +51,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signup() {
+const Signup = () => {
   const classes = useStyles();
-
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -102,7 +101,7 @@ export default function Signup() {
             name="email"
             autoComplete="email"
             autoFocus
-            ref={emailRef}
+            inputRef={emailRef}
           />
           <TextField
             variant="outlined"
@@ -114,7 +113,7 @@ export default function Signup() {
             type="password"
             id="password"
             autoComplete="current-password"
-            ref={passwordRef}
+            inputRef={passwordRef}
           />
           <TextField
             variant="outlined"
@@ -126,7 +125,7 @@ export default function Signup() {
             type="password"
             id="password"
             autoComplete="current-password"
-            ref={passwordConfirmRef}
+            inputRef={passwordConfirmRef}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -154,4 +153,6 @@ export default function Signup() {
       </Box>
     </Container>
   );
-}
+};
+
+export default Signup;

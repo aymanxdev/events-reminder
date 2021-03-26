@@ -21,30 +21,11 @@
   padding: 3rem;
 }
 
-.form-dark-mode {
-  background-color: #46185f;
-  border: 0.5px solid #a278b5;
-
-  input {
-    background-color: #e1ccec;
-
-    &:not(input[type="date"]):not([type="text"]) {
-      background-color: #cc0e74;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    &:not(input[type="date"]):not([type="text"]):hover {
-      background-color: #e6739f;
-    }
-  }
-}
-
 .alert {
   margin-top: 20px;
 }
 
-.add-input input {
+input {
   border-radius: 4px;
   padding: 12px 20px;
   border: 1.7px solid #6155a6;
@@ -82,5 +63,24 @@
   }
   &:not(input[type="date"]):not([type="text"]):hover {
     background-color: #a685e2;
+  }
+}
+
+.form-dark-mode {
+  background-color: #46185f;
+  border: 0.5px solid #a278b5;
+
+  input {
+    background-color: #e1ccec;
+
+    &:not(input[type="date"]):not([type="text"]) {
+      background-color: #cc0e74;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    &:not(input[type="date"]):not([type="text"]):hover {
+      background-color: #e6739f;
+    }
   }
 }

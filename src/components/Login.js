@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signup() {
+export default function Login() {
   const classes = useStyles();
 
   const emailRef = useRef();
@@ -96,7 +96,7 @@ export default function Signup() {
             name="email"
             autoComplete="email"
             autoFocus
-            ref={emailRef}
+            inputRef={emailRef}
           />
           <TextField
             variant="outlined"
@@ -108,7 +108,7 @@ export default function Signup() {
             type="password"
             id="password"
             autoComplete="current-password"
-            ref={passwordRef}
+            inputRef={passwordRef}
           />
 
           <Button
@@ -122,8 +122,11 @@ export default function Signup() {
             Login
           </Button>
           <Grid container>
-            <Grid item>
+            <Grid item xs={6}>
               <Link to="/signup"> Create an account</Link>
+            </Grid>
+            <Grid item xs={6}>
+              <Link to="/forgot-password"> Forgot Password?</Link>
             </Grid>
           </Grid>
         </form>

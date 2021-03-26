@@ -19,6 +19,14 @@
 }
 .right-side {
   margin: auto 2em;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.log-out {
+  margin: auto 2em;
+  color: white i !important;
+  cursor: pointer;
 }
 .switch {
   display: flex;

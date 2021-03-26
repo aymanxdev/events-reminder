@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../database/firebase";
-import { useEvents } from "../hooks/useEvents";
 
 export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
