@@ -19,7 +19,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="aymanx.io">
+      <Link color="inherit" to="https://www.aymanx.io">
         Events Reminder
       </Link>{" "}
       {new Date().getFullYear()}

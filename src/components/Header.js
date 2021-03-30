@@ -38,8 +38,8 @@ function Header() {
 
       <div className="right-side">
         <label
-          class="switch"
-          for="checkbox"
+          className="switch"
+          htmlFor="checkbox"
           title="Change color scheme to dark mode"
         >
           <input
@@ -48,9 +48,9 @@ function Header() {
             onChange={changeMode}
             id="checkbox"
           />
-          <div class="slider round"></div>
-          <div class="toggle-moon">🌙</div>
-          <div class="toggle-sun">☀️</div>
+          <div className="slider round"></div>
+          <div className="toggle-moon">🌙</div>
+          <div className="toggle-sun">☀️</div>
         </label>
         <div className="log-out">
           <ExitToAppIcon className="log-out" onClick={handleLogout}>
