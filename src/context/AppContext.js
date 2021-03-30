@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from "react";
-import { auth } from "../database/firebase";
+import React, { createContext, useState, useEffect, useCallback } from "react";
+import { auth, db } from "../database/firebase";
 
 export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
@@ -16,6 +16,7 @@ export const AppProvider = ({ children }) => {
     dateError: "",
   };
   //////////   hooks /////////
+
   const [eventData, setEventData] = useState({
     name: "",
     date: "",
@@ -25,9 +26,7 @@ export const AppProvider = ({ children }) => {
 
   const [reminders, setReminders] = useState([]);
   const [darkMode, setDarkMode] = useState(getInitialMode());
-
-  // const events = useEvents();
-
+  const [isAdding, setAdding] = useState(false);
   //////////////// format date to add min date to select from ////////////////////
   var todaysDate = new Date(); // Gets today's date
   const year = todaysDate.getFullYear(); // YYYY
@@ -88,16 +87,27 @@ export const AppProvider = ({ children }) => {
     e.preventDefault();
     const is_valid = validate();
     if (is_valid) {
-      setReminders((prevValue) => {
-        return [
-          ...prevValue,
-          { name: eventData.name, date: calculate_days(eventData.date) },
-        ];
-      });
       setEventData(initialState);
+      console.log("event data", eventData);
     }
     return false;
   };
+
+  ////
+  // const submitEvent = (e) => {
+  //   e.preventDefault();
+  //   const is_valid = validate();
+  //   if (is_valid) {
+  //     setReminders((prevValue) => {
+  //       return [
+  //         ...prevValue,
+  //         { name: events.name, date: calculate_days(events.date) },
+  //       ];
+  //     });
+  //     setEventData(initialState);
+  //   }
+  //   return false;
+  // };
 
   ////// Authentication ////////
 
@@ -105,7 +115,10 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const signup = (email, password) => {
-    return auth.createUserWithEmailAndPassword(email, password);
+    return auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((success) => console.log("success", success))
+      .catch((err) => console.log("err", err));
   };
 
   const login = (email, password) => {
@@ -129,7 +142,58 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   //////////////////////  Database  ////////////////////////
+  const addToDatabase = () => {
+    console.log("adding to database", eventData);
+    if (auth.currentUser) {
+      return db
+        .collection("reminders")
+        .doc(auth.currentUser.uid)
+        .collection("data")
+        .doc()
+        .set({
+          name: eventData?.name,
+          date: calculate_days(eventData?.date),
+        })
+        .then((success) => {
+          console.log("success", success);
+          setAdding(true);
+        })
+        .catch((err) => console.log("err", err));
+    }
+  };
 
+  const getEvents = () => {
+    let reminderList = [];
+    if (auth.currentUser) {
+      db.collection("reminders")
+        .doc(auth.currentUser.uid)
+        .collection("data")
+        .onSnapshot((snap) => {
+          snap.forEach((snapshot) => {
+            console.log("snapshot", snapshot.id);
+            reminderList.push(
+              Object.assign(snapshot.data(), { id: snapshot.id })
+            );
+          });
+          setReminders(reminderList);
+          reminderList = [];
+          console.log("reminder list", reminderList);
+        });
+    }
+  };
+
+  const deleteReminder = useCallback((id) => {
+    if (auth.currentUser) {
+      db.collection("reminders")
+        .doc(auth.currentUser.uid)
+        .collection("data")
+        .doc(id)
+        .get()
+        .then((snap) => {
+          snap.ref.delete();
+        });
+    }
+  }, []);
   //////////////////////DARK MODE////////////////////////
 
   const changeMode = () => {
@@ -160,6 +224,10 @@ export const AppProvider = ({ children }) => {
         eventChange,
         submitEvent,
         setReminders,
+        addToDatabase,
+
+        getEvents,
+        deleteReminder,
       }}
     >
       {!loading && children}

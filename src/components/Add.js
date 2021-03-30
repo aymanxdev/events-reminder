@@ -4,9 +4,13 @@ import { AppContext } from "../context/AppContext";
 import Alert from "@material-ui/lab/Alert";
 
 const Add = () => {
-  const { eventChange, minDate, submitEvent, eventData, darkMode } = useContext(
-    AppContext
-  );
+  const {
+    eventChange,
+    minDate,
+    eventData,
+    darkMode,
+    addToDatabase,
+  } = useContext(AppContext);
   const errorMsg = () => {
     if (eventData.dateError && eventData.nameError) {
       return (
@@ -17,6 +21,11 @@ const Add = () => {
     } else if (eventData.dateError) {
       return <Alert severity="warning">{eventData.dateError}</Alert>;
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await addToDatabase();
   };
   return (
     <div className="add-container">
@@ -44,7 +53,7 @@ const Add = () => {
           className="submit-btn add-input"
           type="submit"
           value="Add"
-          onClick={submitEvent}
+          onClick={(e) => handleSubmit(e)}
         />
       </form>
     </div>

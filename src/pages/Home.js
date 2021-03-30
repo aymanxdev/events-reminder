@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import EventBox from "../components/EventBox";
 import Add from "../components/Add";
 import { AppContext } from "../context/AppContext";
@@ -7,18 +7,20 @@ import Header from "../components/Header";
 import useFirestore from "../hooks/useFirestore";
 
 const Home = () => {
-  const { reminders, setReminders } = useContext(AppContext);
+  const { reminders, getEvents, deleteReminder } = useContext(AppContext);
   // const renderedData = [...reminders].reverse();
   const { docs } = useFirestore("events");
   console.log(docs);
 
   const deleteEvent = (id) => {
-    setReminders((prevEvents) => {
-      return prevEvents.filter((reminder, index) => {
-        return index !== id;
-      });
-    });
+    deleteReminder(id);
   };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  console.log("rem", reminders);
 
   return (
     <div>
@@ -31,8 +33,8 @@ const Home = () => {
             name={reminder.name}
             days={reminder.date}
             key={index}
-            id={index}
-            onDelete={deleteEvent}
+            id={reminder?.id}
+            onDelete={() => deleteEvent(reminder?.id)}
           />
         ))}
       </div>
