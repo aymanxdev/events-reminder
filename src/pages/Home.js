@@ -18,7 +18,7 @@ const Home = () => {
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [getEvents]);
 
   console.log("rem", reminders);
 
