@@ -2,6 +2,7 @@
 
 ##### Schedule all your events and keep track of them and never miss one again! With this events reminder web application, it will help you keep everything orgnaised on one place and with track of the days 
 
+
 This web application comes in two themes - dark and light. 
 
 
