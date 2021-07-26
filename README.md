@@ -3,7 +3,7 @@
 ##### Schedule all your events and keep track of them and never miss one again! With this events reminder web application, it will help you keep everything orgnaised on one place and with track of the days 
 
 
-This web application comes in two themes - dark and light. 
+This web application comes in two themes - dark and light and easy toggle button switcher
 
 
 ![Light-mode](https://github.com/aymanxdev/events-reminder/blob/main/public/images/light-mode.png)
