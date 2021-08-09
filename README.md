@@ -14,6 +14,6 @@ It also has authentication uisng Firebase
 
 ![Authentication](https://github.com/aymanxdev/events-reminder/blob/main/public/images/Authentication%20.png)
 
-To start using this app, head to the live demo [here](#)
+To start using this app, head to the live demo [here](https://events-reminder-83889.web.app)
 
 To use it on your local machine, `clone` and then run `npm install`, and finally `yarn start` 
